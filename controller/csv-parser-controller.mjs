@@ -1,20 +1,18 @@
 import fs from "fs";
 function csvParser(data) {
-	fs.readFile("../CSV.csv", "utf-8", (err, data) => {
-		const lines = data.trim().split("\n");
-		const headers = parseCSVLine(lines[0]);
-        let result = lines.slice(1).map((line) => {
-            let obj = {};
-            let values = parseCSVLine(line);
-            headers.map((key, index) => {
-                if(!obj[key]){
-                   obj[key] = values[index];
-                }
-            })
-            return obj;
-        })
-        return result;
+	const lines = data?.trim().split("\n");
+	const headers = parseCSVLine(lines[0]);
+	let result = lines.slice(1).map((line) => {
+		let obj = {};
+		let values = parseCSVLine(line);
+		headers.map((key, index) => {
+			if (!obj[key]) {
+				obj[key] = values[index];
+			}
+		});
+		return obj;
 	});
+	return result;
 }
 
 function parseCSVLine(line) {
@@ -41,5 +39,4 @@ function parseCSVLine(line) {
 	return result;
 }
 
-csvParser();
 export { csvParser };
